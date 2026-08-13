@@ -1,0 +1,32 @@
+# Desired state for alice-digitalocean. This file contains non-secret values
+# only. The DigitalOcean API token belongs in the gitignored .envrc.private as
+# COLORS_PAR_DO_TOKEN.
+#
+# Never export COLORS_PAR_PROFILE. The profile identifies this deployment and
+# its state; the launcher must reject attempts to overlay it.
+
+profile: alice-digitalocean
+workdir: .colors
+
+provider-compute: digitalocean
+provider-dns: false
+provider-backend: local
+
+# Preserve this guard in committed desired state. It may only be overridden for
+# the separately authorized deletion after deployment verification.
+compute-prevent-destroy: true
+
+# Preserve the behavior and defaults of the original Alice deployment.
+package: alice
+digitalocean-name: alice
+digitalocean-region: ams3
+digitalocean-size: s-1vcpu-1gb-35gb-intel
+digitalocean-image: ubuntu-24-04-x64
+digitalocean-vpc-uuid: b6938e67-dc83-11e8-a3da-3cfdfea9f0d8
+# Opaque DigitalOcean-side identifier, quoted so YAML cannot coerce it.
+digitalocean-ssh-keys: "812184"
+
+# The managed local SSH block and private Transmission RPC tunnel.
+ssh-identity-file: ~/.ssh/id_ed25519
+transmission-rpc-port: 9091
+transmission-tunnel-local-port: 19091
