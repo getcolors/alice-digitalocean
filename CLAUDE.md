@@ -15,6 +15,7 @@ installed launcher copy.
 ./green build
 ./green create --dry-run
 ./green create                 # authorization required
+./green sync                   # authorized ephemeral download lifecycle
 ./green describe
 ./green tunnel 19091
 ./green delete                 # guarded, destructive, authorization required
@@ -29,11 +30,16 @@ source.
 `colors.yml` is the only normal edit and contains non-secret values. The
 DigitalOcean token is `COLORS_PAR_DO_TOKEN` in ignored `.envrc.private`. Never
 export `COLORS_PAR_PROFILE`; it can redirect OpenTofu state. Preserve
-`compute-prevent-destroy: true` and lift it only for one authorized delete with
-`COLORS_PAR_COMPUTE_PREVENT_DESTROY=false`.
+`compute-prevent-destroy: true`. `COLORS_PAR_COMPUTE_PREVENT_DESTROY` is ignored;
+explicit `delete` authorizes manual destruction, while `sync` authorizes it only
+after all desired torrents complete and the final rsync succeeds.
 
 The deployment uses an existing Amsterdam VPC and SSH key, one Ubuntu Droplet,
-and local OpenTofu state. Retain `.colors/` until deletion is complete. The UI
+and local OpenTofu state. `sync` adds the configured Kali magnets, keeps the UI
+tunnel open, copies download-directory contents directly into
+`~/Downloads/alice`, and destroys the Droplet only after a final checksummed
+copy. Any failure retains the deployment for a retry. Retain `.colors/` until
+deletion is complete. The UI
 is loopback-only and uses SSH as its authentication boundary. The package also
 disables Ubuntu 24.04's broken Transmission AppArmor notify profile. Use
 `./green tunnel 19091`, then open
