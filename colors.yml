@@ -22,13 +22,17 @@ digitalocean-name: alice
 digitalocean-region: ams3
 digitalocean-size: s-1vcpu-1gb-35gb-intel
 digitalocean-image: ubuntu-24-04-x64
-digitalocean-vpc-uuid: b6938e67-dc83-11e8-a3da-3cfdfea9f0d8
-# Opaque DigitalOcean-side identifier, quoted so YAML cannot coerce it.
-digitalocean-ssh-keys: "812184"
+# No digitalocean-vpc-uuid. The region's default VPC is discovered at runtime
+# through a data source, and the apply asserts that it really is the account
+# default. ams3's default VPC is the one this deployment used to pin by hand.
+#
+# No digitalocean-ssh-keys. The package generates and owns an ed25519 keypair
+# named after the profile in ~/.ssh, registers it with DigitalOcean, and removes
+# both once the Droplet is destroyed. Supplying either key is the escape hatch,
+# and presence is the only switch — there is no mode flag for either.
 
-# The managed local SSH block and private Transmission RPC tunnel.
-# This machine's key is provided by ssh-agent rather than a local key file.
-ssh-identity-file: agent
+# The private Transmission RPC tunnel. The managed ~/.ssh/config block now names
+# the generated key itself, so no identity file is configured here.
 transmission-rpc-port: 9091
 transmission-tunnel-local-port: 19091
 
