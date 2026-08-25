@@ -17,9 +17,11 @@ the managed SSH alias.
 While the foreground tunnel runs, open
 `http://127.0.0.1:19091/transmission/web/`. A successful create performs the same
 tunneled HTTP check before returning. `sync` prints this URL and keeps its tunnel
-open while both desired Kali torrents download. Completed data is copied
+open while every desired torrent downloads. Completed data is copied
 directly into `~/Downloads/alice`; after a final checksummed rsync succeeds, the
-Droplet is destroyed.
+Droplet is destroyed. `transmission-magnet-links` is empty here, so `sync`
+has nothing to wait for and tears the Droplet down after one copy — use
+`create` and `tunnel` when the intent is a UI to keep open.
 
 Credentials belong only in `.envrc.private` as `COLORS_PAR_DO_TOKEN`. Never set
 `COLORS_PAR_PROFILE`. Keep `compute-prevent-destroy: true`.

@@ -44,10 +44,14 @@ asserts it really is the account default. The machine keypair is generated and
 owned by the package as `~/.ssh/alice-digitalocean`(`.pub`), registered with
 DigitalOcean under the profile name, and removed only after the compute destroy
 succeeds. Restore either key to desired state to pin it by hand instead. One
-Ubuntu Droplet and local OpenTofu state. `sync` adds the configured Kali magnets, keeps the UI
+Ubuntu Droplet and local OpenTofu state. `sync` adds the configured magnets, keeps the UI
 tunnel open, copies download-directory contents directly into
 `~/Downloads/alice`, and destroys the Droplet only after a final checksummed
-copy. Any failure retains the deployment for a retry. Retain `.colors/` until
+copy. `transmission-magnet-links` is `[]` in desired state — a valid list
+meaning no torrent is wanted, not a value left to fill in. It does mean `sync`
+satisfies its desired set on the first poll and destroys the Droplet after one
+copy, so `create` plus `tunnel` is the verb pair for a UI meant to stay open.
+Any failure retains the deployment for a retry. Retain `.colors/` until
 deletion is complete. The UI
 is loopback-only and uses SSH as its authentication boundary. The package also
 disables Ubuntu 24.04's broken Transmission AppArmor notify profile. Use
