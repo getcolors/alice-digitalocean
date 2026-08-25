@@ -16,9 +16,11 @@ provider-backend: local
 # the separately authorized deletion after deployment verification.
 compute-prevent-destroy: true
 
-# Preserve the behavior and defaults of the original Alice deployment.
-package: alice
-digitalocean-name: alice
+# No package key: it could hold exactly one value, so it is not desired state.
+# No digitalocean-name. The Droplet is named after the profile, which already
+# keys OpenTofu state, names the machine keypair and its DigitalOcean
+# registration, and is the ~/.ssh/config alias; supply one only to override
+# that label (standards/compute-name.md).
 digitalocean-region: ams3
 digitalocean-size: s-1vcpu-1gb-35gb-intel
 digitalocean-image: ubuntu-24-04-x64
