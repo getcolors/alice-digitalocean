@@ -43,8 +43,9 @@ discovered at runtime through a `digitalocean_vpc` data source, and the apply
 asserts it really is the account default. The machine keypair is generated and
 owned by the package as `~/.ssh/alice-digitalocean`(`.pub`), registered with
 DigitalOcean under the profile name, and removed only after the compute destroy
-succeeds. Restore either key to desired state to pin it by hand instead. One
-Ubuntu Droplet and local OpenTofu state. `sync` adds the configured magnets, keeps the UI
+succeeds. Restore either key to desired state to pin it by hand instead. The desired backend is R2 with compute-require-existing-state enabled.
+Retain former local state and complete the ownership transfer described in
+compute-migration.md before create or sync. `sync` adds the configured magnets, keeps the UI
 tunnel open, copies download-directory contents directly into
 `~/Downloads/alice`, and destroys the Droplet only after a final checksummed
 copy. `transmission-magnet-links` is `[]` in desired state — a valid list
