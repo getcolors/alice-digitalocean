@@ -1,6 +1,6 @@
 # Shared compute migration
 
-Installed `getcolors/alice` revision `5df8c17ed80c5bcb78cef8a49ab0845f20e0fabd`. Root launchers match the
+Installed `getcolors/alice` revision `31d4e3a71bd7654b27dca9c38d9b2db05e0e2669`. Root launchers match the
 installed skill payloads from a verified Skills CLI installation.
 This remains a manual installation, with no invented lockfile.
 
@@ -26,3 +26,8 @@ Configuration changes:
 
 The existing-state guard prevents fresh creation in an empty R2 backend.
 Keep it enabled after transfer; it is not a migration executor.
+
+Repeated deletion after validated compute retirement resumes only local cleanup,
+without SSH keys or remote application stages. Failed ownership inspection
+still blocks deletion. The refreshed published launcher passed an additional
+offline build of this unchanged configuration in a temporary directory.
