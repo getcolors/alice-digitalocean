@@ -10,7 +10,7 @@ workdir: .colors
 
 provider-compute: digitalocean
 provider-dns: false
-provider-backend: local
+provider-backend: r2
 
 # Preserve this guard in committed desired state. It may only be overridden for
 # the separately authorized deletion after deployment verification.
@@ -42,3 +42,10 @@ transmission-tunnel-local-port: 19091
 # never deleted.
 transmission-local-directory: ~/Downloads/alice
 transmission-magnet-links: []
+
+# Existing resources require explicit state transfer before create.
+compute-require-existing-state: true
+
+# Shared workspace R2 state backend; credentials stay in the environment.
+r2-bucket: tofu-state-319271fed8bc6d2d9059362be1165f37-eu
+r2-endpoint: https://319271fed8bc6d2d9059362be1165f37.eu.r2.cloudflarestorage.com
